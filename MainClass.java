@@ -35,15 +35,14 @@ public class MainClass {
         if (index + 1 < arr.length && fillWidth + index * shiftAmount < arr[0].length) {
             fillChar('*', index, index + 1, index * shiftAmount, fillWidth + index * shiftAmount);
             pattern2(fillWidth, shiftAmount, index + 1);
-        } else if (index + 1 < arr.length) {
-            int k = (fillWidth + (index * shiftAmount)) - arr[0].length;
-            fillChar('*', index, index + 1, index * shiftAmount, arr[0].length);
-            fillChar('*', index, index + 1, 0, k);
-            pattern2(fillWidth, shiftAmount, index + 1);
         } else if (index + 1 <= arr.length) {
             int k = (fillWidth + (index * shiftAmount)) - arr[0].length;
-            fillChar('*', index, index + 1, 0, k);
             fillChar('*', index, index + 1, index * shiftAmount, arr[0].length);
+            fillChar('*', index, index + 1, 0, k);
+            if(index + 1 == arr.length){
+                pattern2(fillWidth, shiftAmount, index + 1);   
+            }
+            pattern2(fillWidth, shiftAmount, index + 1);
         }
     }
 
