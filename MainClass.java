@@ -9,17 +9,42 @@ public class MainClass {
         // fillChar('x', 2, 4, 1,4);
         // fillChar('y', 1, 3, 0,5);
 
-        /*
-         * createArray(10,10);
-         * pattern1(0);
-         */
+        /* 
+        createArray(10,10);
+        pattern1(0);*/
 
+        /* 
         createArray(4, 19);
-        pattern2(9, 4, 0);
+        pattern2(9, 4, 0); */
 
-        draw();
+        /* 
+        createArray(3,3);
+        pattern3(1,1); */
+
+        
+        draw(0,0);
+        System.out.println();
+        System.out.println("The maximum sum of rows is: "+findMaxRowSum(0,0));
 
     }
+    public static int findMaxRowSum(int index, int max){
+        if(arr.length > index+1){
+            max = Math.max(findRowSum(index,0), max);
+            return findMaxRowSum(index+1, max);
+        }
+        else{
+            return Math.max(max, findRowSum(index , 0));
+        }
+    } 
+    public static int findRowSum(int row, int index){
+        if(arr[0].length > index+1){ 
+            return (Character.getNumericValue(arr[row][index])+ findRowSum(row, index+1));
+        }
+        else{
+            return Character.getNumericValue(arr[row][index]);
+        }
+        
+    } 
 
     public static void pattern1(int index) {
         if (arr[index][index] != '*' && index <= (int) (Math.min(arr[0].length, arr.length) / 2)) {
@@ -45,6 +70,21 @@ public class MainClass {
             pattern2(fillWidth, shiftAmount, index + 1);
         }
     }
+    public static void pattern3(int index1, int index2){
+        
+        if(arr[0][0]==0){
+            fillChar('1', 0, 1, 0, arr[0].length);
+            fillChar('1', 0, arr.length, 0, 1);
+        } 
+        int k = ((Character.getNumericValue(arr[index1-1][index2])+ Character.getNumericValue(arr[index1][index2-1]))%10);
+        arr[index1][index2]=Character.forDigit(k, 10);
+        if(index1+1!=arr.length){
+            pattern3(index1+1, index2);
+        }
+        if(index2+1!=arr[0].length){
+            pattern3(index1, index2+1);
+        }
+    }
 
     public static void createArray(int numRows, int numColumns) {
         arr = new char[numRows][numColumns];
@@ -59,17 +99,34 @@ public class MainClass {
         }
     }
 
-    public static void draw() {
-        for (int i = 0; i < arr.length; i++) {
-
-            for (int j = 0; j < arr[0].length; j++) {
+    public static void draw(int i, int j) {
+        if(i < arr.length){
+            if(j < arr[0].length){
                 if (arr[i][j] == 0) {
                     System.out.print("#");
                 } else {
                     System.out.print("" + arr[i][j]);
                 }
+                draw(i, j+1);
             }
-            System.out.println();
+            else{
+                System.out.println();
+                draw(i+1, 0);
+            }
+            
+            
         }
     }
+    /* 
+    for (int i = 0; i < arr.length; i++) {
+
+        for (int j = 0; j < arr[0].length; j++) {
+            if (arr[i][j] == 0) {
+                System.out.print("#");
+            } else {
+                System.out.print("" + arr[i][j]);
+            }
+        }
+        System.out.println();
+    } */
 }
